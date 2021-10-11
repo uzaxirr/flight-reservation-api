@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
 from .models import Flight, Passenger, Reservation
 from .serializers import FlightSerializer, PassengerSerializer, ReservationSerializer
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
@@ -46,6 +47,7 @@ def save_reservation(request):
 class ListFlight(ListCreateAPIView):
     queryset = Flight.objects.all()
     serializer_class = FlightSerializer
+    permission_classes = [IsAuthenticated]
 
 class ListPassengers(ListCreateAPIView):
     queryset = Passenger.objects.all()
@@ -62,6 +64,7 @@ class ListReservation(ListCreateAPIView):
 class DetailedFlight(RetrieveUpdateDestroyAPIView):
     queryset = Flight.objects.all()
     serializer_class = FlightSerializer
+    permission_classes = [IsAuthenticated]
 
 class DetailedPassenger(RetrieveUpdateDestroyAPIView):
     queryset = Passenger.objects.all()
